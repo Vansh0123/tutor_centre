@@ -18,7 +18,8 @@ func init() {
 }
 func main() {
 	router := gin.Default()
-	router.POST("tutoring/students", cnx.RegisterStudent)
-	router.GET("tutoring/search", cnx.Search)
+	router.Static("/tutoring/home", "./static")
+	router.POST("/tutoring/students", cnx.RegisterStudent)
+	router.GET("/tutoring/search", cnx.Search)
 	router.Run()
 }
