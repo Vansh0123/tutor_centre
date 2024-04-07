@@ -1,0 +1,20 @@
+table {
+    width: 100%; /* Make the table span the full width of its container */
+    border-collapse: collapse; /* Collapse borders */
+    margin-top: 20px; /* Add some space above the table */
+}
+th, td {
+    border: 1px solid #ddd; /* Add borders to table headers and cells */
+    padding: 8px; /* Add padding inside table cells */
+    text-align: left; /* Align text to the left */
+}
+th {
+    background-color: #f2f2f2; /* Light grey background for headers */
+    color: #333; /* Dark text color for contrast */
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra-striping for rows */
+}
+tr:hover {
+    background-color: #eaeaea; /* Highlight row on hover */
+}
