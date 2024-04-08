@@ -22,6 +22,10 @@ func (c *Connector) EstablishConnectionWithDatabase() {
 	if err != nil {
 		log.Fatal("Error connect to database")
 	}
+	_, e := conn.Exec("CREATE TABLE IF NOT EXISTS students (id UUID PRIMARY KEY, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL,	name TEXT NOT NULL,	subject TEXT NOT NULL, class TEXT NOT NULL,	fees INTEGER NOT NULL, fee_status TEXT NOT NULL);")
+	if e != nil {
+		panic("students table creation failed")
+	}
 	c.accessor = database.New(conn)
 }
 
