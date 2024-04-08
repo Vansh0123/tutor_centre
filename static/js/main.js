@@ -2,7 +2,7 @@ import { Connector } from './connector.js';
  
   async function makePage() {
     const cnx = new Connector(
-        "http://localhost:8080/tutoring"
+        "http://localhost:8000/tutoring"
       );
     await cnx.getData('/search');
     createTableFromJson(cnx.data['user'])

@@ -28,6 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 async function postForm(endpoint, jsonFormData){
-    var cnx = new Connector("http://localhost:8080/tutoring");
+    var cnx = new Connector("http://localhost:8000/tutoring");
     await cnx.postData(endpoint,jsonFormData);    
 }
