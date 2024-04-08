@@ -18,7 +18,7 @@ func init() {
 }
 func main() {
 	router := gin.Default()
-	router.Static("/tutoring/home", "./static")
+	router.Static("/tutoring/app", "./static")
 	router.POST("/tutoring/students", cnx.RegisterStudent)
 	router.GET("/tutoring/search", cnx.Search)
 	router.Run()

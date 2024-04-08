@@ -1,20 +1,10 @@
 import { Connector } from './connector.js';
-
-const cnx = new Connector(
-    "http://localhost:8080/tutoring/search"
-  );
-  
-//   // Data to be posted
-//   const dataToPost = {
-//       name: 'Rian',
-//       subject: 'CS',
-//       class: "7",
-//       fees: 2500,
-//       fee_status: 'TBP'
-//     };
-  
-  async function performOperations() {
-    await cnx.fetchData();
+ 
+  async function makePage() {
+    const cnx = new Connector(
+        "http://localhost:8080/tutoring"
+      );
+    await cnx.getData('/search');
     createTableFromJson(cnx.data['user'])
   }
 
@@ -55,10 +45,7 @@ const cnx = new Connector(
   
     // Append the table to the container
     document.getElementById("table-container").appendChild(table);
-  }
-  
-  performOperations();
-  console.log(cnx.data)
- // createTableFromJson(jsonData);
+  } 
+makePage();
   
   

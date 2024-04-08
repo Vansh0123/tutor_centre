@@ -1,13 +1,11 @@
 export class Connector {
   constructor(url) {
-    this.url = url; // URL to fetch data from
-    this.data = []; // To store fetched data
+    this.url = url;
+    this.data = [];
   }
-
-  // Method to fetch data from the server
-  async fetchData() {
+  async getData(endpoint) {
     try {
-      const response = await fetch(this.url);
+      const response = await fetch(`${this.url}${endpoint}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok (${response.statusText})`);
       }
@@ -20,12 +18,12 @@ export class Connector {
 
   async postData(postUrl, dataToPost) {
     try {
-      const response = await fetch(postUrl, {
+      const response = await fetch(`${this.url}${postUrl}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(dataToPost),
+        body: dataToPost,
       });
 
       if (!response.ok) {

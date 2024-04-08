@@ -34,8 +34,10 @@ func (con *Connector) RegisterStudent(c *gin.Context) {
 		FeeStatus string `json:"fee_status" binding:"required"`
 	}
 	var rBody reqBody
+	log.Printf("%v", c.Request.Body)
 
 	if err := c.Bind(&rBody); err != nil {
+		log.Print(err.Error())
 		c.JSON(400, gin.H{
 			"error": "Bad Request : One of the field might be empty or wrong",
 		})
