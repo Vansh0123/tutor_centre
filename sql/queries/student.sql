@@ -6,3 +6,6 @@ RETURNING *;
 -- name: DeleteStudent :exec
 DELETE FROM students WHERE name=$1
 RETURNING *;
+
+-- name: UpdateFeeStatus :exec
+UPDATE students SET fee_status=$1 WHERE name=$2;

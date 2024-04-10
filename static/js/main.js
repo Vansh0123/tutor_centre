@@ -6,6 +6,11 @@ async function makePage() {
   createTableFromJson(cnx.data["user"]);
 }
 
+async function updateFeeStat(endpoint){
+  var cnx = new Connector("http://localhost:8000/tutoring");
+  await cnx.updateFeeStatus(endpoint);  
+}
+
 function createTableFromJson(jsonData) {
   const table = document.createElement("table");
   const thead = document.createElement("thead");
@@ -66,7 +71,8 @@ function createTableFromJson(jsonData) {
 
 function handleSelectChange(selectedValue, rowIndex, columnKey, item) {
   console.log(`Row ${rowIndex}, Column ${columnKey}, New Value: ${selectedValue}`);
-  console.log(item['Name'])
+  console.log(`/students/${item['Name']}/${selectedValue}`)
+  updateFeeStat(`/students/${item['Name']}/${selectedValue}`)
   // Implement your logic here, knowing exactly which select was changed
 }
 

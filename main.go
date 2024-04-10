@@ -19,5 +19,7 @@ func main() {
 	router.Static("/tutoring/app", "./static")
 	router.POST("/tutoring/students", cnx.RegisterStudent)
 	router.GET("/tutoring/search", cnx.Search)
+	router.DELETE("/tutoring/students/:name",cnx.Delete)
+	router.PUT("/tutoring/students/:name/feestatus/:status",cnx.UpdateFeeStatus)
 	router.Run()
 }
