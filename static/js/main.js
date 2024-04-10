@@ -42,11 +42,28 @@ function createTableFromJson(jsonData) {
             option.text = optionValue;
             if (optionValue === item['FeeStatus']) {
               option.selected = true;
-            }
-            
+              if (optionValue==="PAID"){
+                select.style.color = "#2E6F00"
+              }
+              else if (optionValue==="TBP"){
+                select.style.color = "#A42002"
+              }
+              else{
+                select.style.color = "#000000"
+              }
+            }            
             select.appendChild(option);
           });
           select.addEventListener('change', (event) => {
+            if (event.target.value==="PAID"){
+              select.style.color = "#2E6F00"
+            }
+            else if (event.target.value==="TBP"){
+              select.style.color = "#A42002"
+            }
+            else{
+              select.style.color = "#000000"
+            }
             handleSelectChange(event.target.value, rowIndex, k, item);
           });
           
