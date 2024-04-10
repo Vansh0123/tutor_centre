@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="./css/nav.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-logo"><a href="#">PLH - 11206 Tuition Centre</a></div>
+    <ul class="nav-links">
+      <li><a href="/tutoring/app/index.html">Home</a></li>
+      <li><a href="/tutoring/app/form.html">Add Student</a></li>
+    </ul>
+  </nav>
+    <form>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="class">Class:</label>
+            <select id="class" name="class" required>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fees">Fee:</label>
+            <input type="number" id="fees" name="fees" required>
+        </div>
+        <div class="form-group">
+            <label for="fee_status">Fee Status:</label>
+            <select id="fee_status" name="fee_status" required>
+                <option value="PAID">PAID</option>
+                <option value="TBP">TBP</option>
+                <option value="NA">NA</option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <script type="module" src="./js/post.js"></script>
+</body>
+</html>

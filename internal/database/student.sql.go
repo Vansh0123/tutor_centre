@@ -12,6 +12,16 @@ import (
 	"github.com/google/uuid"
 )
 
+const deleteStudent = `-- name: DeleteStudent :exec
+DELETE FROM students WHERE name=$1
+RETURNING id, created_at, updated_at, name, subject, class, fees, fee_status
+`
+
+func (q *Queries) DeleteStudent(ctx context.Context, name string) error {
+	_, err := q.db.ExecContext(ctx, deleteStudent, name)
+	return err
+}
+
 const registerStudent = `-- name: RegisterStudent :one
 INSERT INTO students(id, created_at, updated_at, name,subject,class,fees,fee_status)
 VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
@@ -52,4 +62,18 @@ func (q *Queries) RegisterStudent(ctx context.Context, arg RegisterStudentParams
 		&i.FeeStatus,
 	)
 	return i, err
+}
+
+const updateFeeStatus = `-- name: UpdateFeeStatus :exec
+UPDATE students SET fee_status=$1 WHERE name=$2
+`
+
+type UpdateFeeStatusParams struct {
+	FeeStatus string
+	Name      string
+}
+
+func (q *Queries) UpdateFeeStatus(ctx context.Context, arg UpdateFeeStatusParams) error {
+	_, err := q.db.ExecContext(ctx, updateFeeStatus, arg.FeeStatus, arg.Name)
+	return err
 }

@@ -17,10 +17,13 @@ type Connector struct {
 }
 
 func (c *Connector) EstablishConnectionWithDatabase() {
-	log.Print(os.Getenv("DB_URI"))
-	conn, err := sql.Open("postgres", os.Getenv("DB_URI"))
+	conn, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal("Error connect to database")
+	}
+	_, e := conn.Exec("CREATE TABLE IF NOT EXISTS students (id UUID PRIMARY KEY, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL,	name TEXT NOT NULL,	subject TEXT NOT NULL, class TEXT NOT NULL,	fees INTEGER NOT NULL, fee_status TEXT NOT NULL);")
+	if e != nil {
+		panic("students table creation failed")
 	}
 	c.accessor = database.New(conn)
 }
@@ -34,8 +37,10 @@ func (con *Connector) RegisterStudent(c *gin.Context) {
 		FeeStatus string `json:"fee_status" binding:"required"`
 	}
 	var rBody reqBody
+	log.Printf("%v", c.Request.Body)
 
 	if err := c.Bind(&rBody); err != nil {
+		log.Print(err.Error())
 		c.JSON(400, gin.H{
 			"error": "Bad Request : One of the field might be empty or wrong",
 		})
@@ -85,5 +90,32 @@ func (con *Connector) Search(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{
 		"user": users,
+	})
+}
+
+func (con *Connector) Delete(c *gin.Context) {
+	name := c.Param("name")
+	err := con.accessor.DeleteStudent(c.Request.Context(), name)
+	if err != nil {
+		log.Fatal("Error deleting student")
+		c.Status(400)
+	}
+	c.JSON(200, gin.H{
+		"msg": "Success",
+	})
+}
+
+func (con *Connector) UpdateFeeStatus(c *gin.Context) {
+	name := c.Param("name")
+	status := c.Param("status")
+	err := con.accessor.UpdateFeeStatus(c.Request.Context(), database.UpdateFeeStatusParams{
+		Name:      name,
+		FeeStatus: status,
+	})
+	if err != nil {
+		c.Status(400)
+	}
+	c.JSON(200, gin.H{
+		"msg": "Successfully Updated",
 	})
 }
