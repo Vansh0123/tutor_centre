@@ -105,3 +105,18 @@ func (con *Connector) Delete(c *gin.Context) {
 		"msg": "Success",
 	})
 }
+
+func (con *Connector) UpdateFeeStatus(c *gin.Context) {
+	name := c.Param("name")
+	status := c.Param("status")
+	err := con.accessor.UpdateFeeStatus(c.Request.Context(), database.UpdateFeeStatusParams{
+		Name:      name,
+		FeeStatus: status,
+	})
+	if err != nil {
+		c.Status(400)
+	}
+	c.JSON(200, gin.H{
+		"msg": "Successfully Updated",
+	})
+}

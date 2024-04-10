@@ -63,3 +63,17 @@ func (q *Queries) RegisterStudent(ctx context.Context, arg RegisterStudentParams
 	)
 	return i, err
 }
+
+const updateFeeStatus = `-- name: UpdateFeeStatus :exec
+UPDATE students SET fee_status=$1 WHERE name=$2
+`
+
+type UpdateFeeStatusParams struct {
+	FeeStatus string
+	Name      string
+}
+
+func (q *Queries) UpdateFeeStatus(ctx context.Context, arg UpdateFeeStatusParams) error {
+	_, err := q.db.ExecContext(ctx, updateFeeStatus, arg.FeeStatus, arg.Name)
+	return err
+}

@@ -6,6 +6,11 @@ async function makePage() {
   createTableFromJson(cnx.data["user"]);
 }
 
+async function updateFeeStat(endpoint){
+  var cnx = new Connector("http://localhost:8000/tutoring");
+  await cnx.updateFeeStatus(endpoint);  
+}
+
 function createTableFromJson(jsonData) {
   const table = document.createElement("table");
   const thead = document.createElement("thead");
@@ -38,10 +43,11 @@ function createTableFromJson(jsonData) {
             if (optionValue === item['FeeStatus']) {
               option.selected = true;
             }
-            select.addEventListener('change', (event) => {
-              handleSelectChange(event.target.value, rowIndex, k, item);
-            });
+            
             select.appendChild(option);
+          });
+          select.addEventListener('change', (event) => {
+            handleSelectChange(event.target.value, rowIndex, k, item);
           });
           
           cell.appendChild(select);
@@ -66,7 +72,8 @@ function createTableFromJson(jsonData) {
 
 function handleSelectChange(selectedValue, rowIndex, columnKey, item) {
   console.log(`Row ${rowIndex}, Column ${columnKey}, New Value: ${selectedValue}`);
-  console.log(item['Name'])
+  console.log(`/students/${item['Name']}/${selectedValue}`)
+  updateFeeStat(`/students/${item['Name']}/feestatus/${selectedValue}`)
   // Implement your logic here, knowing exactly which select was changed
 }
 
