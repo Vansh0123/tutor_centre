@@ -93,3 +93,15 @@ func (con *Connector) Search(c *gin.Context) {
 		"user": users,
 	})
 }
+
+func (con *Connector) Delete(c *gin.Context) {
+	name := c.Param("name")
+	err := con.accessor.DeleteStudent(c.Request.Context(), name)
+	if err != nil {
+		log.Fatal("Error deleting student")
+		c.Status(400)
+	}
+	c.JSON(200, gin.H{
+		"msg": "Success",
+	})
+}

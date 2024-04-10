@@ -12,6 +12,16 @@ import (
 	"github.com/google/uuid"
 )
 
+const deleteStudent = `-- name: DeleteStudent :exec
+DELETE FROM students WHERE name=$1
+RETURNING id, created_at, updated_at, name, subject, class, fees, fee_status
+`
+
+func (q *Queries) DeleteStudent(ctx context.Context, name string) error {
+	_, err := q.db.ExecContext(ctx, deleteStudent, name)
+	return err
+}
+
 const registerStudent = `-- name: RegisterStudent :one
 INSERT INTO students(id, created_at, updated_at, name,subject,class,fees,fee_status)
 VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
