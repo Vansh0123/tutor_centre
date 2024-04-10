@@ -17,7 +17,6 @@ type Connector struct {
 }
 
 func (c *Connector) EstablishConnectionWithDatabase() {
-	log.Print(os.Getenv("DB_URI"))
 	conn, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal("Error connect to database")

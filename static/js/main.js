@@ -1,13 +1,13 @@
 import { Connector } from "./connector.js";
 
 async function makePage() {
-  const cnx = new Connector("http://localhost:8000/tutoring");
+  const cnx = new Connector("http://localhost:8080/tutoring");
   await cnx.getData("/search");
   createTableFromJson(cnx.data["user"]);
 }
 
 async function updateFeeStat(endpoint){
-  var cnx = new Connector("http://localhost:8000/tutoring");
+  var cnx = new Connector("http://localhost:8080/tutoring");
   await cnx.updateFeeStatus(endpoint);  
 }
 

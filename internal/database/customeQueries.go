@@ -3,7 +3,6 @@ package database
 import (
 	"context"
 	"fmt"
-	"log"
 	"strings"
 )
 
@@ -39,8 +38,7 @@ func (q *Queries) Search(ctx context.Context, arg SearchParams) ([]Student, erro
 		queryParams = append(queryParams, arg.FeeStatus)
 		queryBuilder.WriteString(fmt.Sprintf(" AND fee_status = $%d", len(queryParams)))
 	}
-
-	log.Print(queryBuilder.String())
+	queryBuilder.WriteString(" ORDER BY class ASC, name ASC ")
 	rows, err := q.db.QueryContext(ctx, queryBuilder.String(), queryParams...)
 
 	if err != nil {
